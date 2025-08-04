@@ -45,7 +45,7 @@
         <div class="nav-brand">
           <a href="index.html" class="nav-logo">
             <i class="fas fa-rocket"></i>
-            <span>CareerX</span>
+            <span>Career<span class="text-accent">X</span></span>
           </a>
         </div>
         <div class="nav-contact">
@@ -57,6 +57,11 @@
       </div>
     </div>
   </nav>
+
+  <!-- Dark Mode Toggle -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Dark Mode umschalten">
+    <i class="fas fa-moon" id="themeIcon"></i>
+  </button>
 
   <!-- Header / Hero Section -->
   <header class="hero">
@@ -562,6 +567,35 @@
 
   <!-- JavaScript -->
   <script>
+    // Dark Mode Toggle
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const html = document.documentElement;
+    
+    // Check for saved theme preference or default to light mode
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    html.setAttribute('data-theme', savedTheme);
+    updateThemeIcon(savedTheme);
+    
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+      updateThemeIcon(newTheme);
+    });
+    
+    function updateThemeIcon(theme) {
+      if (theme === 'dark') {
+        themeIcon.className = 'fas fa-sun';
+        themeIcon.setAttribute('title', 'Light Mode aktivieren');
+      } else {
+        themeIcon.className = 'fas fa-moon';
+        themeIcon.setAttribute('title', 'Dark Mode aktivieren');
+      }
+    }
+    
     // Smooth scrolling for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
